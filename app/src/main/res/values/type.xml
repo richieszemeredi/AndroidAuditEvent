@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type">
+        <item>Application Activity</item>
+        <item>Audit Log Used</item>
+        <item>Begin Transferring DICOM Instances</item>
+        <item>DICOM Instances Accessed</item>
+        <item>DICOM Instances Transferred</item>
+        <item>DICOM Study Deleted</item>
+        <item>Export</item>
+        <item>Import</item>
+        <item>Network Entry</item>
+        <item>Order Record</item>
+        <item>Patient Record</item>
+        <item>Procedure Record</item>
+        <item>Query</item>
+        <item>Security Alert</item>
+        <item>User Authentication</item>
+        <item>RESTful Operation</item>
+        <item>Access/View Record Lifecycle Event</item>
+        <item>Add Legal Hold Record Lifecycle Event</item>
+        <item>Amend (Update) Record Lifecycle Event</item>
+        <item>Archive Record Lifecycle Event</item>
+        <item>Attest Record Lifecycle Event</item>
+        <item>Decrypt Record Lifecycle Event</item>
+        <item>De-Identify (Anononymize) Record Lifecycle Event</item>
+        <item>Deprecate Record Lifecycle Event</item>
+        <item>Destroy/Delete Record Lifecycle Event</item>
+        <item>Disclose Record Lifecycle Event</item>
+        <item>Encrypt Record Lifecycle Event</item>
+        <item>Extract Record Lifecycle Event</item>
+        <item>Link Record Lifecycle Event</item>
+        <item>Merge Record Lifecycle Event</item>
+        <item>Originate/Retain Record Lifecycle Event</item>
+        <item>Pseudonymize Record Lifecycle Event</item>
+        <item>Re-activate Record Lifecycle Event</item>
+        <item>Receive/Retain Record Lifecycle Event</item>
+        <item>Re-identify Record Lifecycle Event</item>
+        <item>Remove Legal Hold Record Lifecycle Event</item>
+        <item>Report (Output) Record Lifecycle Event</item>
+        <item>Restore Record Lifecycle Event</item>
+        <item>Transform/Translate Record Lifecycle Event</item>
+        <item>Transmit Record Lifecycle Event</item>
+        <item>Unlink Record Lifecycle Event</item>
+        <item>Unmerge Record Lifecycle Event</item>
+        <item>Verify Record Lifecycle Event</item>
+    </string-array>
+</resources>

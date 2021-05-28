@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "31380411488",
+    "project_id": "androidauditevent-48168",
+    "storage_bucket": "androidauditevent-48168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31380411488:android:d0cee0d317609f22b91f05",
+        "android_client_info": {
+          "package_name": "com.premble.androidauditevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31380411488-ia24b9756cm1ta38mtrb10ltr0pkvqg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.premble.androidauditevent",
+            "certificate_hash": "216d4ad368c6f599d3c667835cebd83a86c7de42"
+          }
+        },
+        {
+          "client_id": "31380411488-uljt8tou1ps8vg8qptirsif52616n5en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL6i1l98uMUKuY_vSUUX4ERujhW0ItoZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31380411488-uljt8tou1ps8vg8qptirsif52616n5en.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

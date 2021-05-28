@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="subtype">
+        <item>Application Start</item>
+        <item>Application Stop</item>
+        <item>Login</item>
+        <item>Logout</item>
+        <item>Attach</item>
+        <item>Detach</item>
+        <item>Node Authentication</item>
+        <item>Emergency Override Started</item>
+        <item>Network Configuration</item>
+        <item>Security Configuration</item>
+        <item>Hardware Configuration</item>
+        <item>Software Configuration</item>
+        <item>Use of Restricted Function</item>
+        <item>Audit Recording Stopped</item>
+        <item>Audit Recording Started</item>
+        <item>Object Security Attributes Changed</item>
+        <item>Security Roles Changed</item>
+        <item>User security Attributes Changed</item>
+        <item>Emergency Override Stopped</item>
+        <item>Remote Service Operation Started</item>
+        <item>Remote Service Operation Stopped</item>
+        <item>Local Service Operation Started</item>
+        <item>Local Service Operation Stopped</item>
+        <item>Read</item>
+        <item>Version read</item>
+        <item>Update</item>
+        <item>Patch</item>
+        <item>Delete</item>
+        <item>History</item>
+        <item>History instance</item>
+        <item>History type</item>
+        <item>History system</item>
+        <item>Create</item>
+        <item>Search</item>
+        <item>Search type</item>
+        <item>Search system</item>
+        <item>Capabilities</item>
+        <item>Transaction</item>
+        <item>Batch</item>
+        <item>Operation</item>
+    </string-array>
+</resources>
