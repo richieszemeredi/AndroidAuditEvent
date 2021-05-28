@@ -1,7 +1,8 @@
 package com.premble.androidauditevent;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -72,16 +73,15 @@ public class AuditEventActivity extends AppCompatActivity {
         btAdd = findViewById(R.id.btAdd);
 
 
-
         firestoreDB = FirebaseFirestore.getInstance();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             id = bundle.getString("UpdateAuditEventId");
-            typeSpinner.setSelection(bundle.getInt("UpdateAuditEventType"));
-            subtypeSpinner.setSelection(bundle.getInt("UpdateAuditEventSubtype"));
-            actionSpinner.setSelection(bundle.getInt("UpdateAuditEventAction"));
-            outcomeSpinner.setSelection(bundle.getInt("UpdateAuditEventOutcome"));
+            typeSpinner.setSelection(typeAdapter.getPosition(bundle.getString("UpdateAuditEventType")));
+            subtypeSpinner.setSelection(subtypeAdapter.getPosition(bundle.getString("UpdateAuditEventSubtype")));
+            actionSpinner.setSelection(actionAdapter.getPosition(bundle.getString("UpdateAuditEventAction")));
+            outcomeSpinner.setSelection(outcomeAdapter.getPosition(bundle.getString("UpdateAuditEventOutcome")));
             outcomeDescEdit.setText(bundle.getString("UpdateAuditEventOutcomeDesc"));
             purposeOfEventEdit.setText(bundle.getString("UpdateAuditEventPurposeOfEvent"));
             agentEdit.setText(bundle.getString("UpdateAuditEventAgent"));
@@ -98,10 +98,12 @@ public class AuditEventActivity extends AppCompatActivity {
                 String source = sourceEdit.getText().toString();
                 String entity = entityEdit.getText().toString();
                 String type = typeSpinner.getSelectedItem().toString();
-                String subtype = typeSpinner.getSelectedItem().toString();
-                String action = typeSpinner.getSelectedItem().toString();
-                String period = typeSpinner.getSelectedItem().toString();
-                String outcome = typeSpinner.getSelectedItem().toString();
+                String subtype = subtypeSpinner.getSelectedItem().toString();
+                String action = actionSpinner.getSelectedItem().toString();
+                //String period = typeSpinner.getSelectedItem().toString();
+                String period = "";
+                String outcome = outcomeSpinner.getSelectedItem().toString();
+                System.out.println(outcome);
                 Date recorded = new Date();
                 if (id.length() > 0) {
                     updateAuditEvent(id, type, subtype, action, period, recorded, outcome, outcomeDesc, purposeOfEvent, agent, source, entity);
@@ -137,7 +139,6 @@ public class AuditEventActivity extends AppCompatActivity {
 
     private void addAuditEvent(String type, String subtype, String action, String period, Date recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
         Map auditEvent = new AuditEvent(id, type, subtype, action, period, recorded, outcome, outcomeDesc, purposeOfEvent, agent, source, entity).toMap();
-
         firestoreDB.collection("AuditEvent")
                 .add(auditEvent)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

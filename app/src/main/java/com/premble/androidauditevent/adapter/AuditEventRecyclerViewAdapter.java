@@ -3,8 +3,8 @@ package com.premble.androidauditevent.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +39,6 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
 
         return new AuditEventRecyclerViewAdapter.ViewHolder(view);
     }
-
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//
-//    }
 
     @Override
     public void onBindViewHolder(AuditEventRecyclerViewAdapter.ViewHolder holder, int position) {
@@ -90,8 +85,17 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
         Intent intent = new Intent(context, AuditEventActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("UpdateAuditEventId", auditEvent.getId());
-//        intent.putExtra("UpdateNoteTitle", note.getTitle());
-//        intent.putExtra("UpdateNoteContent", note.getContent());
+        intent.putExtra("UpdateAuditEventType", auditEvent.getType());
+        intent.putExtra("UpdateAuditEventSubtype", auditEvent.getSubtype());
+        intent.putExtra("UpdateAuditEventAction", auditEvent.getAction());
+        intent.putExtra("UpdateAuditEventOutcome", auditEvent.getOutcome());
+        intent.putExtra("UpdateAuditEventOutcomeDesc", auditEvent.getOutcomeDesc());
+        intent.putExtra("UpdateAuditEventPurposeOfEvent", auditEvent.getPurposeOfEvent());
+        intent.putExtra("UpdateAuditEventAgent", auditEvent.getAgent());
+        intent.putExtra("UpdateAuditEventSource", auditEvent.getSource());
+        intent.putExtra("UpdateAuditEventEntity", auditEvent.getEntity());
+
+
         context.startActivity(intent);
     }
 
