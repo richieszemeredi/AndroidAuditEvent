@@ -3,37 +3,44 @@ package com.premble.androidauditevent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.premble.androidauditevent.model.AuditEvent;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Map;
 
 public class AuditEventActivity extends AppCompatActivity {
     private static final String TAG = "AddAuditEventActivity";
 
+    EditText periodStart;
+    EditText periodEnd;
+    EditText recordedEdit;
     Spinner typeSpinner;
     Spinner subtypeSpinner;
     Spinner actionSpinner;
     Spinner outcomeSpinner;
-    TextView outcomeDescEdit;
-    TextView purposeOfEventEdit;
-    TextView agentEdit;
-    TextView sourceEdit;
-    TextView entityEdit;
+    EditText outcomeDescEdit;
+    EditText purposeOfEventEdit;
+    EditText agentEdit;
+    EditText sourceEdit;
+    EditText entityEdit;
+    DatePickerDialog pickPeriodStart;
+    DatePickerDialog pickPeriodEnd;
+    DatePickerDialog pickRecorded;
 
     Button btAdd;
 
@@ -44,7 +51,63 @@ public class AuditEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auditevent);
-
+        periodStart = findViewById(R.id.periodStart);
+        periodStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                pickPeriodStart = new DatePickerDialog(AuditEventActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                periodStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                pickPeriodStart.show();
+            }
+        });
+        periodEnd = findViewById(R.id.periodEnd);
+        periodEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                pickPeriodEnd = new DatePickerDialog(AuditEventActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                periodEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                pickPeriodEnd.show();
+            }
+        });
+        recordedEdit = findViewById(R.id.recordedEdit);
+        recordedEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                pickRecorded = new DatePickerDialog(AuditEventActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                recordedEdit.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                pickRecorded.show();
+            }
+        });
         typeSpinner = findViewById(R.id.typeSpinner);
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
                 R.array.type, android.R.layout.simple_spinner_item);
@@ -72,7 +135,6 @@ public class AuditEventActivity extends AppCompatActivity {
         entityEdit = findViewById(R.id.entityEdit);
         btAdd = findViewById(R.id.btAdd);
 
-
         firestoreDB = FirebaseFirestore.getInstance();
 
         Bundle bundle = getIntent().getExtras();
@@ -87,6 +149,10 @@ public class AuditEventActivity extends AppCompatActivity {
             agentEdit.setText(bundle.getString("UpdateAuditEventAgent"));
             sourceEdit.setText(bundle.getString("UpdateAuditEventSource"));
             entityEdit.setText(bundle.getString("UpdateAuditEventEntity"));
+            periodStart.setText(bundle.getString("UpdateAuditEventPeriod").split("-")[0]);
+            periodEnd.setText(bundle.getString("UpdateAuditEventPeriod").split("-")[1]);
+            recordedEdit.setText(bundle.getString("UpdateAuditEventRecorded"));
+            System.out.println(bundle.getString("UpdateAuditEventRecorded"));
         }
 
         btAdd.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +166,9 @@ public class AuditEventActivity extends AppCompatActivity {
                 String type = typeSpinner.getSelectedItem().toString();
                 String subtype = subtypeSpinner.getSelectedItem().toString();
                 String action = actionSpinner.getSelectedItem().toString();
-                //String period = typeSpinner.getSelectedItem().toString();
-                String period = "";
+                String period = periodStart.getText().toString() + "-" + periodEnd.getText().toString();
                 String outcome = outcomeSpinner.getSelectedItem().toString();
-                System.out.println(outcome);
-                Date recorded = new Date();
+                String recorded = recordedEdit.getText().toString();
                 if (id.length() > 0) {
                     updateAuditEvent(id, type, subtype, action, period, recorded, outcome, outcomeDesc, purposeOfEvent, agent, source, entity);
                 } else {
@@ -115,7 +179,7 @@ public class AuditEventActivity extends AppCompatActivity {
         });
     }
 
-    private void updateAuditEvent(String id, String type, String subtype, String action, String period, Date recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
+    private void updateAuditEvent(String id, String type, String subtype, String action, String period, String recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
         Map auditEvent = new AuditEvent(id, type, subtype, action, period, recorded, outcome, outcomeDesc, purposeOfEvent, agent, source, entity).toMap();
 
         firestoreDB.collection("AuditEvent")
@@ -137,7 +201,7 @@ public class AuditEventActivity extends AppCompatActivity {
                 });
     }
 
-    private void addAuditEvent(String type, String subtype, String action, String period, Date recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
+    private void addAuditEvent(String type, String subtype, String action, String period, String recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
         Map auditEvent = new AuditEvent(id, type, subtype, action, period, recorded, outcome, outcomeDesc, purposeOfEvent, agent, source, entity).toMap();
         firestoreDB.collection("AuditEvent")
                 .add(auditEvent)

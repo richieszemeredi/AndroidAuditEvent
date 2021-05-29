@@ -31,12 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = "MainActivity";
-
     private RecyclerView recyclerView;
     private AuditEventRecyclerViewAdapter mAdapter;
-
     private FirebaseFirestore firestoreDB;
     private ListenerRegistration firestoreListener;
 
@@ -44,12 +41,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         recyclerView = findViewById(R.id.rvAuditEventList);
         firestoreDB = FirebaseFirestore.getInstance();
-
         loadAuditEventList();
-
         firestoreListener = firestoreDB.collection("AuditEvent")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -60,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         List auditEventList = new ArrayList<>();
-
                         for (DocumentSnapshot doc : documentSnapshots) {
                             AuditEvent auditEvent = doc.toObject(AuditEvent.class);
                             auditEvent.setId(doc.getId());
@@ -93,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                                 auditEvent.setId(doc.getId());
                                 auditEventList.add(auditEvent);
                             }
-
                             mAdapter = new AuditEventRecyclerViewAdapter(auditEventList, getApplicationContext(), firestoreDB);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             recyclerView.setLayoutManager(mLayoutManager);
@@ -109,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -121,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

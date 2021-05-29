@@ -1,6 +1,5 @@
 package com.premble.androidauditevent.model;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ public class AuditEvent {
     private String subtype;
     private String action;
     private String period;
-    private Date recorded;
+    private String recorded;
     private String outcome;
     private String outcomeDesc;
     private String purposeOfEvent;
@@ -18,9 +17,10 @@ public class AuditEvent {
     private String source;
     private String entity;
 
-    public AuditEvent() {}
+    public AuditEvent() {
+    }
 
-    public AuditEvent(String id, String type, String subtype, String action, String period, Date recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
+    public AuditEvent(String id, String type, String subtype, String action, String period, String recorded, String outcome, String outcomeDesc, String purposeOfEvent, String agent, String source, String entity) {
         this.id = id;
         this.type = type;
         this.subtype = subtype;
@@ -75,11 +75,11 @@ public class AuditEvent {
         this.period = period;
     }
 
-    public Date getRecorded() {
+    public String getRecorded() {
         return recorded;
     }
 
-    public void setRecorded(Date recorded) {
+    public void setRecorded(String recorded) {
         this.recorded = recorded;
     }
 

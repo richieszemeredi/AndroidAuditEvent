@@ -2,9 +2,10 @@ package com.premble.androidauditevent.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.premble.androidauditevent.AuditEventActivity;
 import com.premble.androidauditevent.R;
 import com.premble.androidauditevent.model.AuditEvent;
@@ -36,7 +36,6 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
     @Override
     public AuditEventRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_auditevent, parent, false);
-
         return new AuditEventRecyclerViewAdapter.ViewHolder(view);
     }
 
@@ -44,16 +43,13 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
     public void onBindViewHolder(AuditEventRecyclerViewAdapter.ViewHolder holder, int position) {
         final int itemPosition = position;
         final AuditEvent auditEvent = (AuditEvent) auditEventsList.get(itemPosition);
-
         holder.title.setText(auditEvent.getId());
-
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateAuditEvent(auditEvent);
             }
         });
-
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +71,6 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
         ViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.tvID);
-
             edit = view.findViewById(R.id.ivEdit);
             delete = view.findViewById(R.id.ivDelete);
         }
@@ -94,8 +89,8 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
         intent.putExtra("UpdateAuditEventAgent", auditEvent.getAgent());
         intent.putExtra("UpdateAuditEventSource", auditEvent.getSource());
         intent.putExtra("UpdateAuditEventEntity", auditEvent.getEntity());
-
-
+        intent.putExtra("UpdateAuditEventPeriod", auditEvent.getPeriod());
+        intent.putExtra("UpdateAuditEventRecorded", auditEvent.getRecorded());
         context.startActivity(intent);
     }
 
@@ -113,5 +108,5 @@ public class AuditEventRecyclerViewAdapter extends RecyclerView.Adapter<AuditEve
                     }
                 });
     }
-
 }
+
